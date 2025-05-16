@@ -1,0 +1,45 @@
+{
+  "type": "module",
+  "name": "eventsbyjess",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "seed": "ts-node scripts/seed.ts"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@sanity/client": "^7.2.1",
+    "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^3.88.3",
+    "dotenv": "^16.5.0",
+    "framer-motion": "^12.12.0",
+    "groq": "^3.88.3",
+    "lodash": "^4.17.21",
+    "next": "15.3.2",
+    "next-sanity": "^9.11.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-icons": "^5.5.0",
+    "react-is": "^19.1.0",
+    "sanity": "^3.88.3",
+    "styled-components": "^6.1.18"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20.17.47",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "autoprefixer": "^10.0.1",
+    "eslint": "^9",
+    "eslint-config-next": "15.3.2",
+    "postcss": "^8",
+    "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3"
+  }
+}
