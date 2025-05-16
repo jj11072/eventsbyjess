@@ -4,7 +4,26 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/client';
 import { notFound } from 'next/navigation';
 
-async function getEvent(slug: string) {
+interface SanityImage {
+    _type: 'image';
+    asset: {
+        _ref: string;
+        _type: 'reference';
+    };
+}
+
+interface Event {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    category: string;
+    mainImage: SanityImage | null;
+    date: string;
+    description: string;
+    gallery: SanityImage[];
+}
+
+async function getEvent(slug: string): Promise<Event | null> {
     const query = `*[_type == "event" && slug.current == $slug][0]{
     _id,
     title,
@@ -21,8 +40,13 @@ async function getEvent(slug: string) {
     return event;
 }
 
-export default async function EventPage({ params }: { params: { slug: string } }) {
-    const event = await getEvent(params.slug);
+type PageProps = {
+    params: Promise<{ slug: string }>;
+}
+
+export default async function EventPage(props: PageProps) {
+    const { slug } = await props.params;
+    const event = await getEvent(slug);
 
     if (!event) {
         notFound();
@@ -66,10 +90,10 @@ export default async function EventPage({ params }: { params: { slug: string } }
                             <div className="mt-12">
                                 <h2 className="text-2xl font-bold mb-6 text-primary">Event Gallery</h2>
                                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                                    {event.gallery.map((image: any, index: number) => (
+                                    {event.gallery.map((image: SanityImage, index: number) => (
                                         <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
                                             <Image
-                                                src={image ? urlFor(image).url() : '/placeholder.jpg'}
+                                                src={urlFor(image).url()}
                                                 alt={`${event.title} - Image ${index + 1}`}
                                                 fill
                                                 className="object-cover"
@@ -106,7 +130,7 @@ export default async function EventPage({ params }: { params: { slug: string } }
                         <div className="bg-secondary text-white p-6 rounded-lg">
                             <h3 className="text-xl font-semibold mb-4">Interested in Similar Events?</h3>
                             <p className="mb-6">
-                                Let us help you create your own unforgettable experience.
+                                Let&apos;s help you create your own unforgettable experience.
                             </p>
                             <Link
                                 href="/contact"

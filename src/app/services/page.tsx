@@ -3,7 +3,25 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/client';
 import { servicesQuery } from '@/sanity/lib/queries';
 
-async function getServices() {
+interface SanityImage {
+    _type: 'image';
+    asset: {
+        _ref: string;
+        _type: 'reference';
+    };
+}
+
+interface Service {
+    _id: string;
+    title: string;
+    slug: { current: string };
+    image: SanityImage | null;
+    description: string;
+    features: string[];
+    order: number;
+}
+
+async function getServices(): Promise<Service[]> {
     return await client.fetch(servicesQuery);
 }
 
@@ -20,7 +38,7 @@ export default async function Services() {
                     </p>
 
                     <div className="space-y-24">
-                        {services.map((service: any, index: number) => (
+                        {services.map((service: Service, index: number) => (
                             <div
                                 key={service._id}
                                 className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'

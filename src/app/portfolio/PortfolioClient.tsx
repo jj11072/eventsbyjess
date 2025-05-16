@@ -107,7 +107,7 @@ export default function PortfolioClient({ events }: PortfolioClientProps) {
                     <div className="text-center mt-16">
                         <h2 className="text-2xl font-bold mb-4 text-primary">Ready to Create Your Perfect Event?</h2>
                         <p className="text-gray-600 mb-8">
-                            Let's work together to make your special occasion unforgettable.
+                            Let&apos;s create something extraordinary together.
                         </p>
                         <Link
                             href="/contact"

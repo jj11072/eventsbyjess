@@ -3,9 +3,20 @@ import Link from 'next/link';
 import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/client';
 import { featuredEventsQuery } from '@/sanity/lib/queries';
+import { SanityImageSource } from '@sanity/image-url/lib/types/types';
 
 async function getFeaturedEvents() {
   return await client.fetch(featuredEventsQuery);
+}
+
+interface Event {
+  _id: string;
+  title: string;
+  slug: { current: string };
+  category: string;
+  mainImage: SanityImageSource | null;
+  date: string;
+  description: string;
 }
 
 export default async function Home() {
@@ -28,14 +39,14 @@ export default async function Home() {
           <h1 className="text-5xl md:text-7xl font-bold mb-6">
             Creating Unforgettable Moments
           </h1>
-          <p className="text-xl md:text-2xl mb-8">
-            Professional Event Planning & Management
+          <p className="text-xl text-gray-600 text-center mb-16 max-w-3xl mx-auto">
+            Let&apos;s create unforgettable moments together.
           </p>
           <Link
             href="/contact"
             className="bg-secondary text-white px-8 py-3 rounded-full text-lg font-semibold hover:bg-secondary-dark transition-all"
           >
-            Let's Plan Your Event
+            Let&apos;s Plan Your Event
           </Link>
         </div>
       </section>
@@ -45,7 +56,7 @@ export default async function Home() {
         <div className="max-w-7xl mx-auto">
           <h2 className="text-4xl font-bold text-center mb-12 text-primary">Featured Events</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredEvents.map((event: any) => (
+            {featuredEvents.map((event: Event) => (
               <div key={event._id} className="bg-white rounded-lg overflow-hidden shadow-lg border border-primary-light">
                 <div className="relative h-64">
                   <Image

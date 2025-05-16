@@ -7,11 +7,45 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
+import { StructureBuilder } from 'sanity/desk'
 
 // Go to https://www.sanity.io/docs/api-versioning to learn how API versioning works
 import {apiVersion, dataset, projectId} from './src/sanity/env'
 import {schemaTypes} from './src/sanity/schemaTypes'
-import {structure} from './src/sanity/structure'
+
+const structure = (S: StructureBuilder) =>
+  S.list()
+    .title('Content')
+    .items([
+      S.listItem()
+        .title('Events')
+        .child(
+          S.documentList()
+            .title('Events')
+            .filter('_type == "event"')
+        ),
+      S.listItem()
+        .title('Services')
+        .child(
+          S.documentList()
+            .title('Services')
+            .filter('_type == "service"')
+        ),
+      S.listItem()
+        .title('Team Members')
+        .child(
+          S.documentList()
+            .title('Team Members')
+            .filter('_type == "teamMember"')
+        ),
+      S.listItem()
+        .title('Contact Info')
+        .child(
+          S.documentList()
+            .title('Contact Info')
+            .filter('_type == "contactInfo"')
+        ),
+    ])
 
 export default defineConfig({
   name: 'default',
@@ -19,6 +53,7 @@ export default defineConfig({
   projectId,
   dataset,
   apiVersion,
+  basePath: '/studio',
   // Add and edit the content schema in the './sanity/schemaTypes' folder
   schema: {
     types: schemaTypes,

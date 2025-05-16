@@ -6,7 +6,7 @@ export default function NotFound() {
             <div className="max-w-7xl mx-auto px-4 py-20 text-center">
                 <h1 className="text-4xl md:text-6xl font-bold mb-6 text-primary">Event Not Found</h1>
                 <p className="text-xl text-gray-600 mb-8">
-                    Sorry, we couldn't find the event you're looking for.
+                    We couldn&apos;t find the event you&apos;re looking for.
                 </p>
                 <div className="space-x-4">
                     <Link

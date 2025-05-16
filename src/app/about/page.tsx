@@ -4,7 +4,24 @@ import { client } from '@/sanity/lib/client';
 import { urlFor } from '@/sanity/lib/client';
 import { teamMembersQuery } from '@/sanity/lib/queries';
 
-async function getTeamMembers() {
+interface SanityImage {
+    _type: 'image';
+    asset: {
+        _ref: string;
+        _type: 'reference';
+    };
+}
+
+interface TeamMember {
+    _id: string;
+    name: string;
+    role: string;
+    image: SanityImage | null;
+    bio: string;
+    order: number;
+}
+
+async function getTeamMembers(): Promise<TeamMember[]> {
     return await client.fetch(teamMembersQuery);
 }
 
@@ -48,7 +65,7 @@ export default async function About() {
                             <p className="text-gray-600">
                                 Our journey has been marked by countless smiles, tears of joy, and
                                 moments of pure celebration. Each event we plan is a unique story,
-                                and we're honored to be a part of these special moments in people's
+                                and we&apos;re honored to be a part of these special moments in people&apos;s
                                 lives.
                             </p>
                         </div>
@@ -147,7 +164,7 @@ export default async function About() {
                 <div className="max-w-7xl mx-auto">
                     <h2 className="text-3xl font-bold text-center mb-12 text-primary">Meet Our Team</h2>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {teamMembers.map((member: any) => (
+                        {teamMembers.map((member: TeamMember) => (
                             <div key={member._id} className="text-center">
                                 <div className="relative w-48 h-48 mx-auto mb-6 rounded-full overflow-hidden">
                                     <Image
@@ -173,7 +190,7 @@ export default async function About() {
                 <div className="max-w-7xl mx-auto text-center">
                     <h2 className="text-3xl font-bold mb-6">Ready to Start Planning Your Event?</h2>
                     <p className="text-xl mb-8">
-                        Let's create something extraordinary together.
+                        Let&apos;s create something extraordinary together.
                     </p>
                     <Link
                         href="/contact"

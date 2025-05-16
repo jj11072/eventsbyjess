@@ -36,4 +36,12 @@ export const teamMembersQuery = `*[_type == "teamMember"] | order(order asc) {
   image,
   bio,
   order
+}`;
+
+export const contactInfoQuery = `*[_type == "contactInfo"] | order(order asc) {
+  _id,
+  title,
+  content,
+  icon,
+  order
 }`; 
